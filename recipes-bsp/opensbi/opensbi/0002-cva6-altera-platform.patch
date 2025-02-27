@@ -1,32 +1,15 @@
-From a3e4680521478ca276987a8b10cfa176b56cc5af Mon Sep 17 00:00:00 2001
-From: Kevin Eyssartier <kevin.eyssartier@thalesgroup.com>
-Date: Fri, 8 Jul 2022 15:39:47 +0200
-Subject: [PATCH] rename ariane to cva6
-
----
- platform/fpga/{ariane => cva6}/config.mk  |  0
- platform/fpga/{ariane => cva6}/objects.mk |  0
- platform/fpga/{ariane => cva6}/platform.c | 80 +++++++++++------------
- 3 files changed, 40 insertions(+), 40 deletions(-)
- rename platform/fpga/{ariane => cva6}/config.mk (100%)
- rename platform/fpga/{ariane => cva6}/objects.mk (100%)
- rename platform/fpga/{ariane => cva6}/platform.c (60%)
-
-diff --git a/platform/fpga/ariane/config.mk b/platform/fpga/cva6/config.mk
-similarity index 100%
-rename from platform/fpga/ariane/config.mk
-rename to platform/fpga/cva6/config.mk
-diff --git a/platform/fpga/ariane/objects.mk b/platform/fpga/cva6/objects.mk
-similarity index 100%
-rename from platform/fpga/ariane/objects.mk
-rename to platform/fpga/cva6/objects.mk
-diff --git a/platform/fpga/ariane/platform.c b/platform/fpga/cva6/platform.c
-similarity index 60%
-rename from platform/fpga/ariane/platform.c
-rename to platform/fpga/cva6/platform.c
-index ea179e5..4035eb5 100644
---- a/platform/fpga/ariane/platform.c
-+++ b/platform/fpga/cva6/platform.c
+diff --git a/platform/fpga/cva6-altera/platform.c b/platform/fpga/cva6-altera/platform.c
+index a0d13f2..573c5cd 100644
+--- a/platform/fpga/cva6-altera/platform.c
++++ b/platform/fpga/cva6-altera/platform.c
+@@ -2,7 +2,7 @@
+ /*
+  * Copyright (C) 2025 PlanV Technologies
+  *				Angela Gonzalez
+- * Adapted from Ariane platform
++ * Adapted from CVA6 platform
+  */
+ 
  #include <sbi/riscv_asm.h>
 @@ -19,59 +19,59 @@
  #include <sbi_utils/serial/uart8250.h>
@@ -35,8 +18,8 @@ index ea179e5..4035eb5 100644
 -#define ARIANE_UART_ADDR			0x10000000
 -#define ARIANE_UART_FREQ			50000000
 -#define ARIANE_UART_BAUDRATE			115200
--#define ARIANE_UART_REG_SHIFT			2
--#define ARIANE_UART_REG_WIDTH			4
+-#define ARIANE_UART_REG_SHIFT			0
+-#define ARIANE_UART_REG_WIDTH			1
 -#define ARIANE_PLIC_ADDR			0xc000000
 -#define ARIANE_PLIC_NUM_SOURCES			3
 -#define ARIANE_HART_COUNT			1
@@ -46,8 +29,8 @@ index ea179e5..4035eb5 100644
 +#define CVA6_UART_ADDR			0x10000000
 +#define CVA6_UART_FREQ			50000000
 +#define CVA6_UART_BAUDRATE			115200
-+#define CVA6_UART_REG_SHIFT			2
-+#define CVA6_UART_REG_WIDTH			4
++#define CVA6_UART_REG_SHIFT			0
++#define CVA6_UART_REG_WIDTH			1
 +#define CVA6_PLIC_ADDR			0xc000000
 +#define CVA6_PLIC_NUM_SOURCES			3
 +#define CVA6_HART_COUNT			1
@@ -97,7 +80,7 @@ index ea179e5..4035eb5 100644
 + * CVA6 platform early initialization.
   */
 -static int ariane_early_init(bool cold_boot)
-+static int cva6_early_init(bool cold_boot)
++static int CVA6_early_init(bool cold_boot)
  {
  	/* For now nothing to do. */
  	return 0;
@@ -108,7 +91,7 @@ index ea179e5..4035eb5 100644
 + * CVA6 platform final initialization.
   */
 -static int ariane_final_init(bool cold_boot)
-+static int cva6_final_init(bool cold_boot)
++static int CVA6_final_init(bool cold_boot)
  {
  	void *fdt;
  
@@ -117,17 +100,17 @@ index ea179e5..4035eb5 100644
  
  /*
 - * Initialize the ariane console.
-+ * Initialize the cva6 console.
++ * Initialize the CVA6 console.
   */
 -static int ariane_console_init(void)
-+static int cva6_console_init(void)
++static int CVA6_console_init(void)
  {
--	return uart8250_init(ARIANE_UART_ADDR,
+-	return altera_uart_init(ARIANE_UART_ADDR,
 -			     ARIANE_UART_FREQ,
 -			     ARIANE_UART_BAUDRATE,
 -			     ARIANE_UART_REG_SHIFT,
 -			     ARIANE_UART_REG_WIDTH);
-+	return uart8250_init(CVA6_UART_ADDR,
++	return altera_uart_init(CVA6_UART_ADDR,
 +			     CVA6_UART_FREQ,
 +			     CVA6_UART_BAUDRATE,
 +			     CVA6_UART_REG_SHIFT,
@@ -135,7 +118,7 @@ index ea179e5..4035eb5 100644
  }
  
 -static int plic_ariane_warm_irqchip_init(int m_cntx_id, int s_cntx_id)
-+static int plic_cva6_warm_irqchip_init(int m_cntx_id, int s_cntx_id)
++static int plic_CVA6_warm_irqchip_init(int m_cntx_id, int s_cntx_id)
  {
 -	size_t i, ie_words = ARIANE_PLIC_NUM_SOURCES / 32 + 1;
 +	size_t i, ie_words = CVA6_PLIC_NUM_SOURCES / 32 + 1;
@@ -147,10 +130,10 @@ index ea179e5..4035eb5 100644
  
  /*
 - * Initialize the ariane interrupt controller for current HART.
-+ * Initialize the cva6 interrupt controller for current HART.
++ * Initialize the CVA6 interrupt controller for current HART.
   */
 -static int ariane_irqchip_init(bool cold_boot)
-+static int cva6_irqchip_init(bool cold_boot)
++static int CVA6_irqchip_init(bool cold_boot)
  {
  	u32 hartid = current_hartid();
  	int ret;
@@ -159,14 +142,14 @@ index ea179e5..4035eb5 100644
  			return ret;
  	}
 -	return plic_ariane_warm_irqchip_init(2 * hartid, 2 * hartid + 1);
-+	return plic_cva6_warm_irqchip_init(2 * hartid, 2 * hartid + 1);
++	return plic_CVA6_warm_irqchip_init(2 * hartid, 2 * hartid + 1);
  }
  
  /*
   * Initialize IPI for current HART.
   */
 -static int ariane_ipi_init(bool cold_boot)
-+static int cva6_ipi_init(bool cold_boot)
++static int CVA6_ipi_init(bool cold_boot)
  {
  	int ret;
  
@@ -175,10 +158,10 @@ index ea179e5..4035eb5 100644
  
  /*
 - * Initialize ariane timer for current HART.
-+ * Initialize cva6 timer for current HART.
++ * Initialize CVA6 timer for current HART.
   */
 -static int ariane_timer_init(bool cold_boot)
-+static int cva6_timer_init(bool cold_boot)
++static int CVA6_timer_init(bool cold_boot)
  {
  	int ret;
  
@@ -192,14 +175,14 @@ index ea179e5..4035eb5 100644
 -	.irqchip_init = ariane_irqchip_init,
 -	.ipi_init = ariane_ipi_init,
 -	.timer_init = ariane_timer_init,
-+	.early_init = cva6_early_init,
-+	.final_init = cva6_final_init,
-+	.console_init = cva6_console_init,
-+	.irqchip_init = cva6_irqchip_init,
-+	.ipi_init = cva6_ipi_init,
-+	.timer_init = cva6_timer_init,
++	.early_init = CVA6_early_init,
++	.final_init = CVA6_final_init,
++	.console_init = CVA6_console_init,
++	.irqchip_init = CVA6_irqchip_init,
++	.ipi_init = CVA6_ipi_init,
++	.timer_init = CVA6_timer_init,
  };
-
+ 
  const struct sbi_platform platform = {
  	.opensbi_version = OPENSBI_VERSION,
  	.platform_version = SBI_PLATFORM_VERSION(0x0, 0x01),
