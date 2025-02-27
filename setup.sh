@@ -4,7 +4,7 @@
 DIR="build"
 MACHINE="cv32a6-genesys2"
 CONFFILE="conf/auto.conf"
-BITBAKEIMAGE="core-image-full-cmdline"
+BITBAKEIMAGE="core-image-minimal"
 
 # make sure sstate is there
 #echo "Creating sstate directory"
@@ -90,6 +90,6 @@ echo "* cv32a6-genesys2: The OpenHW CV32A6 SoC on Genesys2"
 echo "---------------------------------------------------"
 
 # start build
-#echo "Starting build"
-#bitbake $BITBAKEIMAGE
+echo "Starting build"
+bitbake $BITBAKEIMAGE
 
