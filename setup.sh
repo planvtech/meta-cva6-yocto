@@ -91,5 +91,7 @@ echo "---------------------------------------------------"
 
 # start build
 echo "Starting build"
+cd ../openembedded-core
+for i in ../meta-cva6-yocto/patch/*.patch; do patch -p1 -N < "$i"; done
 bitbake $BITBAKEIMAGE
 
