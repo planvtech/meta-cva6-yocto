@@ -1,0 +1,41 @@
+diff --git a/meta/recipes-bsp/opensbi/opensbi_0.9.bb b/meta/recipes-bsp/opensbi/opensbi_0.9.bb
+index 1956fbf9ff..3770c5544d 100644
+--- a/meta/recipes-bsp/opensbi/opensbi_0.9.bb
++++ b/meta/recipes-bsp/opensbi/opensbi_0.9.bb
+@@ -8,8 +8,8 @@ require opensbi-payloads.inc
+ 
+ inherit autotools-brokensep deploy
+ 
+-SRCREV = "234ed8e427f4d92903123199f6590d144e0d9351"
+-SRC_URI = "git://github.com/riscv/opensbi.git;branch=master;protocol=https \
++SRCREV = "ef75897b599f7c8014ee106ca865278f2fcca90c"
++SRC_URI = "git://github.com/planvtech/opensbi.git;branch=agilex_support;protocol=https \
+            file://0001-Makefile-Don-t-specify-mabi-or-march.patch \
+           "
+ 
+diff --git a/meta/recipes-extended/cracklib/cracklib_2.9.7.bb b/meta/recipes-extended/cracklib/cracklib_2.9.7.bb
+index 2537962336..44c577206c 100644
+--- a/meta/recipes-extended/cracklib/cracklib_2.9.7.bb
++++ b/meta/recipes-extended/cracklib/cracklib_2.9.7.bb
+@@ -9,7 +9,7 @@ DEPENDS = "cracklib-native zlib"
+ 
+ EXTRA_OECONF = "--without-python --libdir=${base_libdir}"
+ 
+-SRC_URI = "git://github.com/cracklib/cracklib;protocol=https;branch=master \
++SRC_URI = "git://github.com/cracklib/cracklib;protocol=https;branch=main \
+            file://0001-packlib.c-support-dictionary-byte-order-dependent.patch \
+            file://0002-craklib-fix-testnum-and-teststr-failed.patch"
+ 
+diff --git a/meta/recipes-support/bmap-tools/bmap-tools_3.6.bb b/meta/recipes-support/bmap-tools/bmap-tools_3.6.bb
+index c66ff3a7da..0b17c720aa 100644
+--- a/meta/recipes-support/bmap-tools/bmap-tools_3.6.bb
++++ b/meta/recipes-support/bmap-tools/bmap-tools_3.6.bb
+@@ -9,7 +9,7 @@ SECTION = "console/utils"
+ LICENSE = "GPLv2"
+ LIC_FILES_CHKSUM = "file://COPYING;md5=b234ee4d69f5fce4486a80fdaf4a4263"
+ 
+-SRC_URI = "git://github.com/intel/${BPN};branch=master;protocol=https"
++SRC_URI = "git://github.com/intel/${BPN};branch=main;protocol=https"
+ 
+ SRCREV = "c0673962a8ec1624b5189dc1d24f33fe4f06785a"
+ S = "${WORKDIR}/git"
