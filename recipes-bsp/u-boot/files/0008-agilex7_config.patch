@@ -1,0 +1,77 @@
+diff --git a/arch/riscv/dts/cv32a6_agilex7.dts b/arch/riscv/dts/cv32a6_agilex7.dts
+index 988472aac0..f43a016580 100644
+--- a/arch/riscv/dts/cv32a6_agilex7.dts
++++ b/arch/riscv/dts/cv32a6_agilex7.dts
+@@ -3,8 +3,8 @@
+ / {
+   #address-cells = <2>;
+   #size-cells = <2>;
+-  compatible = "eth,ariane-bare-dev";
+-  model = "eth,ariane-bare";
++  compatible = "eth,cva6-bare-dev";
++  model = "eth,cva6-bare";
+   chosen {
+     stdout-path = "/soc/uart@10000000:115200";
+     //tick-timer =  "/cpus/cpu@0";
+@@ -18,7 +18,7 @@
+       device_type = "cpu";
+       reg = <0>;
+       status = "okay";
+-      compatible = "eth, ariane", "riscv";
++      compatible = "eth, cva6", "riscv";
+       riscv,isa = "rv32ima";
+       mmu-type = "riscv,sv32";
+       tlb-split;
+@@ -37,7 +37,7 @@
+   L26: soc {
+     #address-cells = <2>;
+     #size-cells = <2>;
+-    compatible = "eth,ariane-bare-soc", "simple-bus";
++    compatible = "eth,cva6-bare-soc", "simple-bus";
+     ranges;
+     clint@2000000 {
+       compatible = "riscv,clint0";
+diff --git a/configs/openhwgroup_cv32a6_agilex7_defconfig b/configs/openhwgroup_cv32a6_agilex7_defconfig
+index 555c0485d5..5062ef4422 100644
+--- a/configs/openhwgroup_cv32a6_agilex7_defconfig
++++ b/configs/openhwgroup_cv32a6_agilex7_defconfig
+@@ -6,7 +6,7 @@ CONFIG_RISCV_SMODE=y
+ CONFIG_OF_BOARD_SETUP=y
+ CONFIG_BOOTDELAY=5
+ CONFIG_USE_BOOTCOMMAND=y
+-CONFIG_BOOTCOMMAND="setenv fdt_high 0xffffffff; bootm 90000000 - $(fdtcontroladdr)"
++CONFIG_BOOTCOMMAND="setenv fdt_high 0xffffffff; iminfo 90000000; fdt addr 90000000; fdt list; bootm 90000000 - $(fdtcontroladdr)"
+ CONFIG_DISPLAY_CPUINFO=y
+ CONFIG_SPL_SPI_FLASH_MTD=y
+ CONFIG_CMD_GPT=y
+@@ -35,3 +35,6 @@ CONFIG_SPI_FLASH_MTD=y
+ CONFIG_SYS_NS16550=y
+ CONFIG_SPI=y
+ CONFIG_XILINX_SPI=y
++CONFIG_CMD_EXT4=y
++CONFIG_CMD_FAT=y
++CONFIG_FIT=y
+diff --git a/configs/openhwgroup_cv64a6_agilex7_defconfig b/configs/openhwgroup_cv64a6_agilex7_defconfig
+index c21943e81c..4e31de339a 100644
+--- a/configs/openhwgroup_cv64a6_agilex7_defconfig
++++ b/configs/openhwgroup_cv64a6_agilex7_defconfig
+@@ -3,11 +3,10 @@ CONFIG_DEFAULT_DEVICE_TREE="cv64a6_agilex7"
+ CONFIG_TARGET_OPENHWGROUP_CVA6_AGILEX7=y
+ CONFIG_ARCH_RV64I=y
+ CONFIG_RISCV_SMODE=y
+-# CONFIG_RISCV_ISA_C is not set
+ CONFIG_OF_BOARD_SETUP=y
+ CONFIG_BOOTDELAY=5
+ CONFIG_USE_BOOTCOMMAND=y
+-CONFIG_BOOTCOMMAND="setenv fdt_high 0xffffffffffffffff; bootm 90000000 - $(fdtcontroladdr)"
++CONFIG_BOOTCOMMAND="mmc info; mmc read 90000000 100000 5000; setenv fdt_high 0xffffffffffffffff; bootm 90000000 - $(fdtcontroladdr)"
+ CONFIG_DISPLAY_CPUINFO=y
+ CONFIG_SPL_SPI_FLASH_MTD=y
+ CONFIG_CMD_GPT=y
+@@ -36,3 +35,6 @@ CONFIG_SPI_FLASH_MTD=y
+ CONFIG_SYS_NS16550=y
+ CONFIG_SPI=y
+ CONFIG_XILINX_SPI=y
++CONFIG_CMD_EXT4=y
++CONFIG_CMD_FAT=y
++CONFIG_FIT=y

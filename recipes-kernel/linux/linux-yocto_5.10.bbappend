@@ -8,7 +8,8 @@ SRC_URI = "git://github.com/openhwgroup/linux;protocol=https;branch=linux-5.10.y
 
 LIC_FILES_CHKSUM = "file://COPYING;md5=6bc538ed5bd9a7fc9398086aedcd7e46"
 
-SRC_URI += "file://0001-cva6-genesys2-add-32-and-64-bits-dts.patch"
+SRC_URI += "file://0001-cva6-genesys2-add-32-and-64-bits-dts.patch \
+            file://0002-cva6-agilex7-add-dts.patch"
 
 SRC_URI:append:cv32a6-genesys2 = " file://cv32a6-fragment.cfg \
                                    file://cv32a6/defconfig \
