@@ -13,6 +13,19 @@ index 1956fbf9ff..3770c5544d 100644
             file://0001-Makefile-Don-t-specify-mabi-or-march.patch \
            "
  
+diff --git a/meta/recipes-connectivity/mobile-broadband-provider-info/mobile-broadband-provider-info_git.bb b/meta/recipes-connectivity/mobile-broadband-provider-info/mobile-broadband-provider-info_git.bb
+index 4246f4dcbd..3b170f4fdd 100644
+--- a/meta/recipes-connectivity/mobile-broadband-provider-info/mobile-broadband-provider-info_git.bb
++++ b/meta/recipes-connectivity/mobile-broadband-provider-info/mobile-broadband-provider-info_git.bb
+@@ -8,7 +8,7 @@ SRCREV = "11f2247eccd3c161b8fd9b41143862e9fb81193c"
+ PV = "20210805"
+ PE = "1"
+ 
+-SRC_URI = "git://gitlab.gnome.org/GNOME/mobile-broadband-provider-info.git;protocol=https;branch=master"
++SRC_URI = "git://gitlab.gnome.org/GNOME/mobile-broadband-provider-info.git;protocol=https;branch=main"
+ S = "${WORKDIR}/git"
+ 
+ inherit autotools
 diff --git a/meta/recipes-extended/cracklib/cracklib_2.9.7.bb b/meta/recipes-extended/cracklib/cracklib_2.9.7.bb
 index 2537962336..44c577206c 100644
 --- a/meta/recipes-extended/cracklib/cracklib_2.9.7.bb
