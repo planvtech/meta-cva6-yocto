@@ -4,7 +4,8 @@
 DIR="build"
 MACHINE="cv32a6-genesys2"
 CONFFILE="conf/auto.conf"
-BITBAKEIMAGE="core-image-minimal"
+# BITBAKEIMAGE="core-image-minimal"
+BITBAKEIMAGE="riscv-initramfs-image"
 
 # make sure sstate is there
 #echo "Creating sstate directory"
